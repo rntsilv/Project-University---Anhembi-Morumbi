@@ -6,7 +6,7 @@
 
 ##### O sistema irá permitir a implementação dos seguintes históricos dos alunos:
 
-##### Cadastramento de novas inscrições, contendo nome e e-mail;
+##### Cadastramento de novas inscrições, contendo nome completo e e-mail;
 
 ##### Histórico dos alunos casdastrados, listando-os por ordem de cadastro;
 
