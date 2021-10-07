@@ -11,7 +11,7 @@
 * Buscar se o aluno faz parte da lista de participantes, buscando-o pelo seu nome;
 * Remover um aluno cadstrado buscando-o por seu e-mail;
 * Alterar o nome de um aluno cadastrado no sistema, buscando-o por seu e-mail;
-* O programa tem um acesso administrador, para gerenciar os acessos Universidade, através da autenticação de usuário e senha.
+* O programa tem um acesso administrador, para gerenciar os acessos da Universidade, através da autenticação de usuário e senha.
 
 ## Desenvolvedores:
 ##### Renato Silva RA: 21449523
