@@ -1,185 +1,114 @@
-listaUsuarios = []
 
-dicionarioCadastro={
-    "nome": "", 
-    "email": ""
-    }
+def cadastroUsuario(usuarios):
+    qtdCadastro = int(input("Quantos usuarios deseja cadastrar? "))
+    contador = 0
+    while qtdCadastro != contador:
+        nome = input("Digite o nome de usuário: ").lower()
+        email = input("Digite o email: ").lower()
+        usuarios.append((nome, email))
 
-def buscarUsuarioNome():
-    global buscarUsuario
-
-    while True:
-        buscarUsuario = input("Digite o nome do usuario: ").upper()
-
-        if buscarUsuario in dicionarioCadastro['nome'] and buscarUsuario != "":
-            print("Foi encontrado um usuario ja cadastrado com esse nome")
-            return False
-        elif buscarUsuario == "":
-            print("Você deveria preencher o nome corretamente")
-            continue
-        else:
-            print("Não foi encontrado nenhum usuário com o mesmo nome")
-            while True:
-                op = input("Deseja se cadastrar com esse nome?[s/n]: ").upper()
-                if op in ['S', 'SIM']:
-                    return buscarUsuario
-                elif op in ['N', 'NAO', 'NO', 'NÃO']:
-                    print("ok")
-                    return False
-                else:
-                    print("Não entendi, pode repetir?")
-                    continue
+        contador += 1
 
 
-def cadastroUsuario():
+def exibirOrdemAlfabetica(usuarios):
 
-    if buscarUsuarioNome() == False:
-        while True:
-
-            dicionarioCadastro["nome"] = input("Insira o nome completo: ").upper()
-            dicionarioCadastro["email"] = input("Insira o e-mail: ").upper()                
-
-            if dicionarioCadastro["nome"] != "" and dicionarioCadastro['email'] != "":
-                print("\nUsuario cadastrado!\n")
-                print("Nome: {}\nEmail: {}\n".format(dicionarioCadastro["nome"].capitalize(), dicionarioCadastro["email"].capitalize()))
-                return False
-            else:
-                print("Você precisa digitar o nome e o e-mail corretamente")
-
-    elif buscarUsuario != None:
-        
-        while True:
-            dicionarioCadastro["nome"] = buscarUsuario
-            dicionarioCadastro["email"] = input("Insira o e-mail: ").upper()                
-
-            if dicionarioCadastro["nome"] != None and dicionarioCadastro['email'] != None:
-                print("\nUsuario cadastrado!\n")
-                print("Nome: {}\nEmail: {}\n".format(dicionarioCadastro["nome"].capitalize(), dicionarioCadastro["email"].capitalize()))
-                return False
-            else:
-                print("Você precisa digitar o nome e o e-mail corretamente")
-
-def opcaoCadastro():
-    while True:
-        qtdCadastro = int(input("Quantos usuarios deseja cadastrar? "))
-        contador = 0
-        if qtdCadastro in range(1, 10):
-            while qtdCadastro != contador:
-                novoUsuario = cadastroUsuario()
-                listaUsuarios.append(novoUsuario) 
-                contador += 1
-                return False
-        else:
-            print("Você só pode cadastrar de 1 a 10 usários")
-            continue
-
-        
-def exibirOrder():
-
-    while True:
-        opcao = input("Deseja exibir  a lista em ordem alfabetica?[s/n]: \n").upper()
-        if opcao in ['S', 'SIM']:
-            exibirOrdemAlfabetica()
-        elif opcao in ['N', 'NAO', 'NO', 'NÃO']: 
-            exibirLista()
-
-def exibirOrdemAlfabetica():
-    ordernarPorNome = "nome"
-    valorDaChave = [nome[ordernarPorNome]for nome in listaUsuarios] 
-    valorDaChave.sort()
-    print(valorDaChave)
-    
-def exibirLista():
-    
-    ordernarPor = "nome"
-    valorDaChave = [nome[ordernarPor] for nome in listaUsuarios]
-    print(valorDaChave)
-
-def exibirUsuario():
-    buscarUsuario = input("Digite o nome do usuário: ").upper()
-
-    if buscarUsuario in dicionarioCadastro['nome']:
-        print(f"Usuario localizado: {dicionarioCadastro['nome'].capitalize()}")
+    if usuarios != []:
+        usuariosOrdenadas = sorted(usuarios, key=len)
+        print(usuariosOrdenadas)
     else:
-        print('Não existe nenhum usuário com esse nome cadastrado atualmente')
-        
-def removerUsuario():
-    buscarUsuario = input("Digite o e-mail do usuario: ").upper()
-    for indice in listaUsuarios:
-        if buscarUsuario == indice['email']:
-            print("Usuarios loclizado {}".format(indice["nome"]))
+        print("Não existe nenhum usuário cadastrado")
+
+def usuariosCadastrados(usuarios):
+
+    if usuarios != []:
+        for usuario in usuarios:
+            nome, email = usuario
+            print(f'Nome: {nome}, Email: {email}'.capitalize())
+    else:
+        print("Não existe nenhum usuário cadastrado")
+
+
+def buscarUsuarioNome(usuarios):
+    buscar = input('Email do usuário: ')
+    for usuario in usuarios:
+        nome, email = usuario
+        if email == buscar:
+            print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
             break
-    confirmarRemoção=input("Deseja remover usuario?[s/n]: ").upper()
-    if confirmarRemoção in ['S', 'SIM']:
-        excluir = listaUsuarios.index(indice)
-        listaUsuarios.pop(excluir)
-        for  indice in listaUsuarios:
-            verificador = True
-            if buscarUsuario == indice['email']:
-                verificador = False
+    else:
+        print(f'Usuario não encontrado')
+
+def removerUsuario(usuarios):
+    buscar = input('Email do usuário: ')
+
+    if usuarios == []:
+        print("Nenhum usuario cadastrado")
+    else:
+        for usuario in usuarios:
+            nome, email = usuario
+            if email == buscar:
+                print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
+                break     
+
+    atualizar = input("Deseja remover o usuario?[s/n]: ").lower()
+
+    if atualizar in ['s', 'sim']:
+        excluir = usuarios.index(usuario)
+        usuarios.pop(excluir)
+        print(f"Seu usuario e E-mail, foram excluidos")
+
+def atualizarUsuario(usuarios):
+    buscar = input('Email do usuário: ')
+
+    if usuarios == []:
+        print("Nenhum usuario cadastrado")
+    else:
+        for usuario in usuarios:
+            nome, email = usuario
+            if email == buscar:
+                print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
                 break
-            if verificador == False:
-                print("Usuario não localizado ")
-                return
-                
-def atualizarUsuario():
-    buscarUsuario = input("Digite o e-mail do usuario: ").upper()
-    for  indice in listaUsuarios:
-        if buscarUsuario == indice['email']:
-            print("Usuarios loclizado {}".format(indice["nome"]))
-            break
-    atualizar=input("Confirmimar a atualização?[s/n]: ").upper()
-    if atualizar in ['S','SIM']:
-        novoNome = input("Informe o nome atualizado: ").upper
-        indice.update({"nome":novoNome})
-    elif atualizar in ['N', 'NAO', 'NO', 'NÃO']:
-        return back()
 
-def menu():
-    acessoFunções={
-    "1": opcaoCadastro,
-    "2": exibirOrder,
-    "3": exibirUsuario,
-    "4": removerUsuario,
-    "5": atualizarUsuario,
-    
-    }  
+    atualizar = input("Confirmimar a atualização?[s/n]: ").lower()
+    if atualizar in ['s', 'sim']:
+        novoNome = input("Informe o nome atualizado: ").lower()
+        nomeAtualizado = usuario.index(nome)
+        nomeAtualizado.update(novoNome)
+        print(f"Seu nome foi atualizado para {nomeAtualizado}".capitalize())
 
-    print("___________________MENU___________________")
+def menu(): 
+    print(23 * "_" + "MENU" + 23 * "_")
     print("Para cadastrar um novo usuario digite: 1")
     print("Para exibir a lista de usuarios digite: 2")
-    print("Buscar por um usuario digite: 3")
-    print("Para remover um usuarios digite: 4")
-    print("Para atualizar o nome de um usuarios digite: 5")
-    print("Para encerrar o programa digite: 6")
-    print("__________________________________________")
-    opcao = input("O que função deseja acessar? ")
-    if opcao =="6":
-        print("Encerrando o Programa")
-        exit()
-    case = acessoFunções.get(opcao)
-    case()
+    print("Para exibir a lista de usuarios digite: 3")
+    print("Buscar por um usuario digite: 4")
+    print("Para remover um usuarios digite: 5")
+    print("Para atualizar o nome de um usuarios digite: 6")
+    print("Para encerrar o programa digite: 7")
+    print(50 * "_")
 
-def back():
-    while True:
-        op = input("Você deseja voltar ao Menu?[s/n]: ").upper()
-        if op in ['S', 'SIM']:
-            return False
-        elif op in ['N', 'NAO', 'NO', 'NÃO']:
-            print("Encerrando o programa")
-            exit()
-        else:
-            print("Não entendi, pode repetir?")
-            continue
-
-        
 def main():
+    usuarios = []
+
     while True:
         menu()
-        back()
+        opcao = int(input('Qual a sua ação: '))
+        if opcao == 1:
+            cadastroUsuario(usuarios)
+        elif opcao == 2:
+            usuariosCadastrados(usuarios)
+        elif opcao == 3:
+            exibirOrdemAlfabetica(usuarios)
+        elif opcao == 4:
+            buscarUsuarioNome(usuarios)
+        elif opcao == 5:
+            removerUsuario(usuarios)
+        elif opcao == 6:
+            atualizarUsuario(usuarios)
+        elif opcao == 7:
+            exit()
+        else:
+            print('Ação inválida')
 
 if __name__ == "__main__":
     main()
-    
-    
-    
