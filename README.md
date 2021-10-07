@@ -13,6 +13,16 @@
 * Alterar o nome de um aluno cadastrado no sistema, buscando-o por seu e-mail;
 * O programa tem um acesso administrador, para gerenciar os acessos da Universidade, através da autenticação de usuário e senha.
 
+##### Sistema de login
+
+* Usuario: admin
+* Senha: admin1234
+
+### Bibliotecas Importadas:
+
+* import stdiomask
+* import os
+
 ## Desenvolvedores:
 ##### Renato Silva RA: 21449523
 ##### Lucas Bezerra Martins RA: 21510629

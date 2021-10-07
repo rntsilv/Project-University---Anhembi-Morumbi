@@ -1,12 +1,44 @@
+import stdiomask
+import os
+
+def loginAdm():
+    clear()
+    cont = 0
+    print('\nPara continuar, digite seu login de Gestor')
+    while True:
+        cont += 1
+        if cont > 3:
+            print("\nUsuario Bloqueado, tente novamente mais tarde")
+            exit()
+        else:
+            login = open('txt\login.txt')
+            senha = open('txt\senha.txt')
+
+            usuarioLogin = input('\nDigite o seu nome de usuario: ').lower()
+            usuarioSenha = stdiomask.getpass(prompt='Digite a sua senha: ')
+
+            usuario = login.readlines()
+            password = senha.readlines()
+            if usuarioLogin in usuario and usuarioSenha in password:
+                print(f'Bem vindo, {usuarioLogin}!')
+                return False
+            else:
+                print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.')
+            login.close()
+            senha.close()
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def cadastrarUsuarios(usuarios):
     qtdCadastro = int(input("Quantos alunos deseja cadastrar? "))
     contador = 0
     while qtdCadastro != contador:
-        print("\n" + 13*"_" + f"Usuário({contador+1})" + 13*"_")
+        print("\n" + 13*"_" + f"usuario({contador+1})" + 13*"_")
         nome = input("\nDigite o nome do aluno: ").lower()
         email = input("Digite o e-mail do aluno: ").lower()
-        usuarios.append((nome.capitalize(), email))
+        usuarios.append((nome, email))
 
         contador += 1
 
@@ -17,8 +49,8 @@ def exibirOrdemAlfabetica(usuarios):
     if usuarios != []:
         for usuario in usuarios:
             nome, email = usuario
-            print("\n" + 13*"_" + f"Usuário({cont+1})" + 13*"_")
-            print(f'\nNome: {nome}')
+            print("\n" + 13*"_" + f"usuario({cont})" + 13*"_")
+            print(f'Nome: {nome}')
             print(f'E-mail: {email}')
             cont += 1
     else:
@@ -29,8 +61,8 @@ def usuariosCadastrados(usuarios):
     if usuarios != []:
         for usuario in usuarios:
             nome, email = usuario
-            print("\n" + 13*"_" + f"Usuário({cont+1})" + 13*"_")
-            print(f'\nNome: {nome}')
+            print("\n" + 13*"_" + f"usuario({cont})" + 13*"_")
+            print(f'Nome: {nome}')
             print(f'E-mail: {email}')
             cont += 1
     else:
@@ -84,7 +116,7 @@ def atualizarUsuarios(usuarios):
         novoNome = input("Informe o nome atualizado: ").lower()
         nomeAtualizado = usuario.index(nome)
         nomeAtualizado.update(novoNome)
-        print(f"Seu nome foi atualizado para {nomeAtualizado}")
+        print(f"Seu nome foi atualizado para {nomeAtualizado}".capitalize())
 
 def back():
     while True:
@@ -92,7 +124,8 @@ def back():
         if not back:
             return False
 
-def menu(): 
+def menu():
+    print("\t\tBEM VINDO AO MENU")
     print("\n" + 23 * "_" + "MENU" + 23 * "_")
     print("[1] Para cadastrar um novo aluno")
     print("[2] Para exibir a lista de alunos(Por ordem de cadastro)")
@@ -105,8 +138,10 @@ def menu():
 
 def main():
     usuarios = []
-
+    loginAdm()
+    clear()
     while True:
+        
         menu()
         opcao = int(input('\nQual a sua ação: '))
         if opcao == 1:
