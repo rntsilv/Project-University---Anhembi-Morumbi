@@ -1,8 +1,5 @@
-import stdiomask
-import os
 
 def loginAdm():
-    clear()
     cont = 0
     print('\nPara continuar, digite seu login de Gestor')
     while True:
@@ -15,7 +12,7 @@ def loginAdm():
             senha = open('txt\senha.txt')
 
             usuarioLogin = input('\nDigite o seu nome de usuario: ').lower()
-            usuarioSenha = stdiomask.getpass(prompt='Digite a sua senha: ')
+            usuarioSenha = input('Digite a sua senha: ')
 
             usuario = login.readlines()
             password = senha.readlines()
@@ -27,9 +24,6 @@ def loginAdm():
             login.close()
             senha.close()
 
-
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 def cadastrarUsuarios(usuarios):
     qtdCadastro = int(input("Quantos alunos deseja cadastrar? "))
@@ -44,7 +38,6 @@ def cadastrarUsuarios(usuarios):
 
 
 def exibirOrdemAlfabetica(usuarios):
-
     cont = 0
     if usuarios != []:
         for usuario in usuarios:
@@ -55,6 +48,7 @@ def exibirOrdemAlfabetica(usuarios):
             cont += 1
     else:
         print("[Error]Não existe nenhum aluno cadastrado")
+
 
 def usuariosCadastrados(usuarios):
     cont = 0
@@ -70,7 +64,6 @@ def usuariosCadastrados(usuarios):
 
 
 def buscarUsuarioEmail(usuarios):
-    
     buscar = input('E-mail do aluno: ')
     for usuario in usuarios:
         nome, email = usuario
@@ -79,6 +72,7 @@ def buscarUsuarioEmail(usuarios):
             break
     else:
         print(f'[Error]Aluno não encontrado')
+
 
 def removerUsuarios(usuarios):
     buscar = input('E-mail do aluno: ')
@@ -99,6 +93,7 @@ def removerUsuarios(usuarios):
         usuarios.pop(excluir)
         print(f"O cadastro do aluno, foram excluidos")
 
+
 def atualizarUsuarios(usuarios):
     buscar = input('E-mail do aluno: ')
 
@@ -118,11 +113,13 @@ def atualizarUsuarios(usuarios):
         nomeAtualizado.update(novoNome)
         print(f"Seu nome foi atualizado para {nomeAtualizado}".capitalize())
 
+
 def back():
     while True:
         back = str(input('\nPRESSIONE "ENTER" PARA VOLTAR AO MENU'))
         if not back:
             return False
+
 
 def menu():
     print("\t\tBEM VINDO AO MENU")
@@ -136,10 +133,10 @@ def menu():
     print("[7] Para encerrar o programa")
     print(50 * "_")
 
+
 def main():
     usuarios = []
     loginAdm()
-    clear()
     while True:
         
         menu()
@@ -166,6 +163,7 @@ def main():
             exit()
         else:
             print('Ação inválida')
+
 
 if __name__ == "__main__":
     main()
