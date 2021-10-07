@@ -3,10 +3,10 @@ def cadastrarUsuarios(usuarios):
     qtdCadastro = int(input("Quantos alunos deseja cadastrar? "))
     contador = 0
     while qtdCadastro != contador:
-        print("\n" + 13*"_" + f"usuario({contador+1})" + 13*"_")
+        print("\n" + 13*"_" + f"Usuário({contador+1})" + 13*"_")
         nome = input("\nDigite o nome do aluno: ").lower()
         email = input("Digite o e-mail do aluno: ").lower()
-        usuarios.append((nome, email))
+        usuarios.append((nome.capitalize(), email))
 
         contador += 1
 
@@ -17,8 +17,8 @@ def exibirOrdemAlfabetica(usuarios):
     if usuarios != []:
         for usuario in usuarios:
             nome, email = usuario
-            print("\n" + 13*"_" + f"usuario({cont})" + 13*"_")
-            print(f'Nome: {nome}')
+            print("\n" + 13*"_" + f"Usuário({cont+1})" + 13*"_")
+            print(f'\nNome: {nome}')
             print(f'E-mail: {email}')
             cont += 1
     else:
@@ -29,8 +29,8 @@ def usuariosCadastrados(usuarios):
     if usuarios != []:
         for usuario in usuarios:
             nome, email = usuario
-            print("\n" + 13*"_" + f"usuario({cont})" + 13*"_")
-            print(f'Nome: {nome}')
+            print("\n" + 13*"_" + f"Usuário({cont+1})" + 13*"_")
+            print(f'\nNome: {nome}')
             print(f'E-mail: {email}')
             cont += 1
     else:
@@ -84,7 +84,7 @@ def atualizarUsuarios(usuarios):
         novoNome = input("Informe o nome atualizado: ").lower()
         nomeAtualizado = usuario.index(nome)
         nomeAtualizado.update(novoNome)
-        print(f"Seu nome foi atualizado para {nomeAtualizado}".capitalize())
+        print(f"Seu nome foi atualizado para {nomeAtualizado}")
 
 def back():
     while True:
