@@ -97,7 +97,7 @@ def menu():
     print("[1] Para cadastrar um novo aluno")
     print("[2] Para exibir a lista de alunos(Por ordem de cadastro)")
     print("[3] Para exibir a lista de aluno(Por ordem Alfabética)")
-    print("[4] Para buscar um aluno por email de cadastro")
+    print("[4] Para buscar um aluno por e-mail de cadastro")
     print("[5] Para remover o cadastro de um aluno")
     print("[6] Para atualizar o nome de um aluno")
     print("[7] Para encerrar o programa")
