@@ -1,110 +1,109 @@
 
-def cadastroUsuario(usuarios):
-    qtdCadastro = int(input("Quantos usuarios deseja cadastrar? "))
+def cadastroAluno(alunos):
+    qtdCadastro = int(input("Quantos alunos deseja cadastrar? "))
     contador = 0
     while qtdCadastro != contador:
-        nome = input("Digite o nome de usuário: ").lower()
-        email = input("Digite o email: ").lower()
-        usuarios.append((nome, email))
+        nome = input("Digite o nome do aluno: ").lower()
+        email = input("Digite o e-mail do aluno: ").lower()
+        alunos.append((nome, email))
 
         contador += 1
 
 
-def exibirOrdemAlfabetica(usuarios):
+def exibirOrdemAlfabetica(alunos):
 
-    if usuarios != []:
-        usuariosOrdenadas = sorted(usuarios, key=len)
-        print(usuariosOrdenadas)
+    if alunos != []:
+        alunosOrdenados = sorted(alunos, key=len)
+        print(alunosOrdenados)
     else:
-        print("Não existe nenhum usuário cadastrado")
+        print("Não existe nenhum aluno cadastrado")
 
-def usuariosCadastrados(usuarios):
+def alunosCadastrados(alunos):
 
-    if usuarios != []:
-        for usuario in usuarios:
-            nome, email = usuario
-            print(f'Nome: {nome}, Email: {email}'.capitalize())
+    if alunos != []:
+        for aluno in alunos:
+            nome, email = aluno
+            print(f'Nome: {nome}, E-mail: {email}'.capitalize())
     else:
-        print("Não existe nenhum usuário cadastrado")
+        print("Não existe nenhum aluno cadastrado")
 
 
-def buscarUsuarioNome(usuarios):
-    buscar = input('Email do usuário: ')
-    for usuario in usuarios:
-        nome, email = usuario
+def buscarUsuarioNome(alunos):
+    buscar = input('E-mail do aluno: ')
+    for aluno in alunos:
+        nome, email = aluno
         if email == buscar:
-            print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
+            print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
             break
     else:
-        print(f'Usuario não encontrado')
+        print(f'Aluno não encontrado')
 
-def removerUsuario(usuarios):
-    buscar = input('Email do usuário: ')
+def removerAluno(alunos):
+    buscar = input('E-mail do aluno: ')
 
-    if usuarios == []:
-        print("Nenhum usuario cadastrado")
+    if alunos == []:
+        print("Nenhum aluno cadastrado")
     else:
-        for usuario in usuarios:
-            nome, email = usuario
+        for aluno in alunos:
+            nome, email = aluno
             if email == buscar:
-                print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
+                print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
                 break     
 
-    atualizar = input("Deseja remover o usuario?[s/n]: ").lower()
+    atualizar = input("Deseja remover o cadastro do aluno?[s/n]: ").lower()
 
     if atualizar in ['s', 'sim']:
-        excluir = usuarios.index(usuario)
-        usuarios.pop(excluir)
-        print(f"Seu usuario e E-mail, foram excluidos")
+        excluir = alunos.index(aluno)
+        alunos.pop(excluir)
+        print(f"O aluno e e-mail, foram excluidos do cadastro")
 
-def atualizarUsuario(usuarios):
-    buscar = input('Email do usuário: ')
+def atualizarAluno(alunos):
+    buscar = input('E-mail do aluno: ')
 
-    if usuarios == []:
-        print("Nenhum usuario cadastrado")
+    if alunos == []:
+        print("Nenhum aluno cadastrado")
     else:
-        for usuario in usuarios:
-            nome, email = usuario
+        for aluno in alunos:
+            nome, email = aluno
             if email == buscar:
-                print(f'O usuário foi encontrado como > Nome: {nome}, Email: {email}')
+                print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
                 break
 
-    atualizar = input("Confirmimar a atualização?[s/n]: ").lower()
+    atualizar = input("Confirmimar a atualização de cadastro?[s/n]: ").lower()
     if atualizar in ['s', 'sim']:
         novoNome = input("Informe o nome atualizado: ").lower()
-        nomeAtualizado = usuario.index(nome)
+        nomeAtualizado = aluno.index(nome)
         nomeAtualizado.update(novoNome)
         print(f"Seu nome foi atualizado para {nomeAtualizado}".capitalize())
 
 def menu(): 
     print(23 * "_" + "MENU" + 23 * "_")
-    print("Para cadastrar um novo usuario digite: 1")
-    print("Para exibir a lista de usuarios digite: 2")
-    print("Para exibir a lista de usuarios digite: 3")
-    print("Buscar por um usuario digite: 4")
-    print("Para remover um usuarios digite: 5")
-    print("Para atualizar o nome de um usuarios digite: 6")
-    print("Para encerrar o programa digite: 7")
+    print("[1] Para cadastrar um novo aluno")
+    print("[2] Para exibir a lista de alunos")
+    print("[3] Para buscar por um aluno")
+    print("[4] Para remover um aluno")
+    print("[5] Para atualizar o nome de um aluno")
+    print("[6] Para encerrar o programa")
     print(50 * "_")
 
 def main():
-    usuarios = []
+    alunos = []
 
     while True:
         menu()
         opcao = int(input('Qual a sua ação: '))
         if opcao == 1:
-            cadastroUsuario(usuarios)
+            cadastroAluno(alunos)
         elif opcao == 2:
-            usuariosCadastrados(usuarios)
+            alunosCadastrados(alunos)
         elif opcao == 3:
-            exibirOrdemAlfabetica(usuarios)
+            exibirOrdemAlfabetica(alunos)
         elif opcao == 4:
-            buscarUsuarioNome(usuarios)
+            buscarUsuarioNome(alunos)
         elif opcao == 5:
-            removerUsuario(usuarios)
+            removerAluno(alunos)
         elif opcao == 6:
-            atualizarUsuario(usuarios)
+            atualizarAluno(alunos)
         elif opcao == 7:
             exit()
         else:
