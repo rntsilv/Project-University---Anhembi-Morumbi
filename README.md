@@ -19,7 +19,6 @@
 
 #### Bibliotecas Importadas:
 
-* import stdiomask
 * import os
 
 ## Desenvolvedores:
