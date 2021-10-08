@@ -1,3 +1,5 @@
+import os
+
 usuarios = []
 
 def loginAdm():
@@ -6,19 +8,19 @@ def loginAdm():
     while True:
         cont += 1
         if cont > 3:
-            print("\nUsuario Bloqueado, tente novamente mais tarde")
+            print("\nUsuário Bloqueado, tente novamente mais tarde")
             exit()
         else:
             login = open('txt\login.txt')
             senha = open('txt\senha.txt')
 
-            usuarioLogin = input('\nDigite o seu nome de usuario: ').lower()
+            usuarioLogin = input('\nDigite o seu nome de usuário: ').lower()
             usuarioSenha = input('Digite a sua senha: ')
 
             usuario = login.readlines()
             password = senha.readlines()
             if usuarioLogin in usuario and usuarioSenha in password:
-                print(f'Bem vindo, {usuarioLogin}!')
+                print(f'Bem-vindo, {usuarioLogin}!')
                 return False
             else:
                 print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.')
@@ -38,13 +40,13 @@ def cadastrarUsuarios():
             while qtdCadastro != contador:
                 nome = input("\nDigite o nome do aluno: ").lower()
                 email = input("Digite o e-mail do aluno: ").lower()
-                usuarios.append((nome, email))
+                usuarios.append((nome.capitalize(), email))
                 contador += 1
                 
             break
 
         except ValueError:
-            print("[Error]Não entendi, repita")
+            print("\n[Error]Opção inválida, por favor repita")
             break
 
 
@@ -56,7 +58,7 @@ def exibirOrdemAlfabetica():
     else:
         usuariosSorteados = sorted(usuarios)
 
-        print("\n" + 13*"_" + f"Ordem Alfabetica" + 13*"_")
+        print("\n" + 13*"_" + f"Ordem Alfabética" + 13*"_")
         for usuario in usuariosSorteados:
             print(f'\nNome: {usuario[0]}\nE-mail: {usuario[1]}')
 
@@ -106,10 +108,10 @@ def removerUsuarios():
         
                 atualizar = input("\nDeseja remover o cadastro do aluno?[s/n]: ").lower()
 
-                if atualizar in ['s', 'sim']:
+                if atualizar in ['s', 'sim', 'y', 'yes']:
                     excluir = usuarios.index(usuario)
                     usuarios.pop(excluir)
-                    print(f"\nO cadastro do aluno foi excluido")
+                    print(f"\nO cadastro do aluno foi excluído")
                     break
                 elif atualizar in ['n', 'nao', 'no', 'não']:
                     print("\nVoltando ao menu")
@@ -136,7 +138,8 @@ def atualizarUsuarios():
             if email == buscar:
                 print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
 
-                novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ")
+                novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").lower()
+                novoNome.capitalize()
                 excluir = usuarios.index(usuario)
                 usuarios.pop(excluir)
                 usuarios.append((novoNome, email))
@@ -153,11 +156,14 @@ def back():
         if not back:
             return False
 
+def clear():
+    os.system('cls') or None
 
 def menu():
     print()
-    print("\t\tBEM VINDO AO MENU")
-    print("\n" + 23 * "_" + "MENU" + 23 * "_")
+    print("\t\t    BEM-VINDO(A) AO MENU")
+    print("\n" + 28 * "_" + "MENU" + 28 * "_")
+    print()
     print("[1] Para cadastrar um novo aluno")
     print("[2] Para exibir a lista de alunos(Por ordem de cadastro)")
     print("[3] Para exibir a lista de aluno(Por ordem Alfabética)")
@@ -165,7 +171,7 @@ def menu():
     print("[5] Para remover o cadastro de um aluno")
     print("[6] Para atualizar o nome de um aluno")
     print("[7] Para encerrar o programa")
-    print(50 * "_")
+    print(60 * "_")
 
     opcao = int(input('\nQual a sua ação: '))
     
@@ -194,7 +200,9 @@ def menu():
 
 
 def main():
+    clear()
     loginAdm()
+    clear()
     while True:
         menu()
 
