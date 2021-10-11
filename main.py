@@ -3,6 +3,7 @@ import os
 usuarios = []
 
 def loginAdm():
+    clear()
     cont = 0
     print('\nPara continuar, digite seu login de Gestor')
     while True:
@@ -33,16 +34,20 @@ def cadastrarUsuarios():
 
     while True:
         try:
-            qtdCadastro = int(input("Quantos alunos deseja cadastrar?: "))
+            qtdCadastro = int(input("Digite quantos alunos, deseja cadastrar: "))
             contador = 0
             print("\n" + 10*"_" + f"Cadastro de Usuários" + 10*"_")
 
             while qtdCadastro != contador:
                 nome = input("\nDigite o nome do aluno: ").lower()
                 email = input("Digite o e-mail do aluno: ").lower()
-                usuarios.append((nome.capitalize(), email))
-                contador += 1
-                
+
+                if nome != '' and email != '':
+                    usuarios.append((nome.capitalize(), email))
+                    contador += 1
+                else:
+                    print("[Error]Preencha corretamente seus dados")    
+                    continue   
             break
 
         except ValueError:
@@ -63,8 +68,8 @@ def exibirOrdemAlfabetica():
             print(f'\nNome: {usuario[0]}\nE-mail: {usuario[1]}')
 
 
-def usuariosCadastrados(usuarios):
-
+def usuariosCadastrados():
+    global usuarios
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
     else:
@@ -76,7 +81,8 @@ def usuariosCadastrados(usuarios):
 
 def buscarUsuarioEmail():
     global usuarios
-    buscar = input('E-mail do aluno: ')
+    
+    buscar = input('E-mail do aluno: ').lower()
 
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
@@ -85,17 +91,15 @@ def buscarUsuarioEmail():
             nome, email = usuario
 
             if email == buscar:
-                print(f'\nO aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
+                print(f'\nO aluno foi encontrado como > Nome: {nome} com o Email: {email}')
                 break
-            else:
-                print(f'[Error]E-mail não encontrado')
-                break
-
+        else:
+            print("[Error]E-mail não encontrado")
 
 
 def removerUsuarios():
     global usuarios
-    buscar = input('E-mail do aluno: ')
+    buscar = input('E-mail do aluno a ser removido: ').lower()
 
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
@@ -119,35 +123,36 @@ def removerUsuarios():
                 else:
                     print("\n[Error]Não entendi, pode repetir?")
                     continue
-            else:
-                print(f'[Error]E-mail não encontrado')
-                break
+        else:
+            print(f'[Error]E-mail não encontrado')
 
 
 def atualizarUsuarios():
     global usuarios
 
-    buscar = input("E-mail do usuário a ser removido: ")
+    buscar = input("E-mail do aluno a ser atualizado: ")
 
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
     else:
-        for usuario in usuarios:
+        for i,usuario in enumerate(usuarios):
             nome, email = usuario
 
             if email == buscar:
                 print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
 
                 novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").lower()
-                novoNome.capitalize()
+
                 excluir = usuarios.index(usuario)
                 usuarios.pop(excluir)
-                usuarios.append((novoNome, email))
+
+                novoUsuario = novoNome.capitalize(), email
+
+                usuarios.insert(i, novoUsuario)
                 print(f"\nO nome do Aluno foi atualizado")
                 break
-            else:
-                print(f'[Error]E-mail não encontrado')
-                break
+        else:
+            print("[Error]E-mail não encontrado")
 
 
 def back():
@@ -156,53 +161,59 @@ def back():
         if not back:
             return False
 
+
 def clear():
     os.system('cls') or None
 
-def menu():
-    print()
-    print("\t\t    BEM-VINDO(A) AO MENU")
-    print("\n" + 28 * "_" + "MENU" + 28 * "_")
-    print()
-    print("[1] Para cadastrar um novo aluno")
-    print("[2] Para exibir a lista de alunos(Por ordem de cadastro)")
-    print("[3] Para exibir a lista de aluno(Por ordem Alfabética)")
-    print("[4] Para buscar um aluno por e-mail de cadastro")
-    print("[5] Para remover o cadastro de um aluno")
-    print("[6] Para atualizar o nome de um aluno")
-    print("[7] Para encerrar o programa")
-    print(60 * "_")
 
-    opcao = int(input('\nQual a sua ação: '))
-    
-    if opcao == 1:
-        cadastrarUsuarios()
+def menu():
+
+    menuOpcoes = {}
+
+    menuOpcoes['1']="[1] Para cadastrar um novo aluno" 
+    menuOpcoes['2']="[2] Para exibir a lista de alunos(Por ordem de cadastro)"
+    menuOpcoes['3']="[3] Para exibir a lista de aluno(Por ordem Alfabética)"
+    menuOpcoes['4']="[4] Para buscar um aluno por e-mail de cadastro"
+    menuOpcoes['5']="[5] Para remover o cadastro de um aluno"
+    menuOpcoes['6']="[6] Para atualizar o nome de um aluno"
+    menuOpcoes['7']="[7] Para encerrar o programa"
+
+    while True:
+        clear()
+        opcoes = menuOpcoes.values()
+        print()
+        print("\n" + 28 * "_" + "MENU" + 28 * "_")
+        print()
+
+        for escolha in opcoes:
+            print(escolha)
+
+        print(60 * "_")
+
+        selection = input("Escolha uma opção: ")
+        
+        if selection =='1':
+            cadastrarUsuarios()
+        elif selection == '2':
+            usuariosCadastrados()
+        elif selection == '3':
+            exibirOrdemAlfabetica()
+        elif selection == '4': 
+            buscarUsuarioEmail()
+        elif selection == '5': 
+            removerUsuarios()
+        elif selection == '6': 
+            atualizarUsuarios()
+        elif selection == '7': 
+            exit()
+        else: 
+            print("[Error]Opção inválida")
+
         back()
-    elif opcao == 2:
-        usuariosCadastrados(usuarios)
-        back()
-    elif opcao == 3:
-        exibirOrdemAlfabetica()
-        back()
-    elif opcao == 4:
-        buscarUsuarioEmail()
-        back()
-    elif opcao == 5:
-        removerUsuarios()
-        back()
-    elif opcao == 6:
-        atualizarUsuarios()
-        back()
-    elif opcao == 7:
-        exit()
-    else:
-        print('Ação inválida')
 
 
 def main():
-    clear()
     loginAdm()
-    clear()
     while True:
         menu()
 
