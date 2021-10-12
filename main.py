@@ -125,8 +125,8 @@ def exibirUsuariosExcluidos(usuariosExcluidos):
     if usuariosExcluidos == []:
         print("[Error] Lista vazia!")
     else:
-        for usuario in usuariosExcluidos:
-            print("\n" + 13*"_" + f"Usuários Excluidos" + 13*"_")
+        print("\n" + 13*"_" + f"Usuários Excluidos" + 13*"_")
+        for usuario in usuariosExcluidos:           
             print("Nome: {}, Email: {}, Motivo: {}".format(usuario['nome'], usuario['email'], usuario['motivo']))
 
 
@@ -193,6 +193,7 @@ def clear():
 
 def menu():
     usuarios = []
+    usuariosExcluidos = []
     menuOpcoes = {}
 
     menuOpcoes['1']="[1] Para cadastrar um novo aluno" 
@@ -202,7 +203,8 @@ def menu():
     menuOpcoes['5']="[5] Para remover o cadastro de um aluno"
     menuOpcoes['6']="[6] Para atualizar o nome de um aluno"
     menuOpcoes['7']="[7] Para atualizar o e-mail de um aluno"
-    menuOpcoes['8']="[8] Para encerrar o programa"
+    menuOpcoes['8']="[8] Para exibir os alunos excluidos"
+    menuOpcoes['9']="[9] Para encerrar o programa"
 
     while True:
         clear()
@@ -227,12 +229,14 @@ def menu():
         elif selection == '4': 
             buscarUsuarioEmail(usuarios)
         elif selection == '5': 
-            removerUsuarios(usuarios)
+            removerUsuarios(usuarios,usuariosExcluidos )
         elif selection == '6': 
             atualizarUsuarios(usuarios)
         elif selection == '7': 
             atualizarEmail(usuarios)
-        elif selection == '8': 
+        elif selection == '8':
+            exibirUsuariosExcluidos(usuariosExcluidos)    
+        elif selection == '9': 
             exit()
         else: 
             print("[Error]Opção inválida")
