@@ -11,8 +11,8 @@ def loginAdm():
             print("\nUsuário Bloqueado, tente novamente mais tarde")
             exit()
         else:
-            login = open('txt\login.txt')
-            senha = open('txt\senha.txt')
+            login = open(r'txt\login.txt')
+            senha = open(r'txt\senha.txt')
 
             usuarioLogin = input('\nDigite o seu nome de usuário: ').lower()
             usuarioSenha = input('Digite a sua senha: ')
