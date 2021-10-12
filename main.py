@@ -1,4 +1,5 @@
 import os
+import time
 
 
 def loginAdm():
@@ -21,6 +22,7 @@ def loginAdm():
             password = senha.readlines()
             if usuarioLogin in usuario and usuarioSenha in password:
                 print(f'Bem-vindo, {usuarioLogin}!')
+                time.sleep(1.5)
                 return False
             else:
                 print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.Numero de tentativas restante {}'.format(3-tentativasLogin))
@@ -91,7 +93,7 @@ def buscarUsuarioEmail(usuarios):
             print("[Error]E-mail não encontrado")
 
 
-def removerUsuarios(usuarios):
+def removerUsuarios(usuarios, usuariosExcluidos):
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
     else:
@@ -101,11 +103,12 @@ def removerUsuarios(usuarios):
 
             if email == buscar:
                 print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
-        
+                motivoExclusao = input("Qual motivo da exclusão?: ")
                 atualizar = input("\nDeseja remover o cadastro do aluno?[s/n]: ").lower()
-
+                excluidos = {'nome': nome,'email': email,'motivo': motivoExclusao}
                 if atualizar in ['s', 'sim', 'y', 'yes']:
                     excluir = usuarios.index(usuario)
+                    usuariosExcluidos.append(excluidos)
                     usuarios.pop(excluir)
                     print(f"\nO cadastro do aluno foi excluído")
                     break
@@ -116,7 +119,15 @@ def removerUsuarios(usuarios):
                     print("\n[Error]Não entendi, pode repetir?")
                     continue
         else:
-            print(f'[Error]E-mail não encontrado')
+            print(f'[Error]E-mail não encontrado')  
+
+def exibirUsuariosExcluidos(usuariosExcluidos):
+    if usuariosExcluidos == []:
+        print("[Error] Lista vazia!")
+    else:
+        for usuario in usuariosExcluidos:
+            print("\n" + 13*"_" + f"Usuários Excluidos" + 13*"_")
+            print("Nome: {}, Email: {}, Motivo: {}".format(usuario['nome'], usuario['email'], usuario['motivo']))
 
 
 def atualizarUsuarios(usuarios):
