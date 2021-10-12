@@ -3,11 +3,11 @@ import os
 
 def loginAdm():
     clear()
-    cont = 0
+    tentativasLogin = 0
     print('\nPara continuar, digite seu login de Gestor')
     while True:
-        cont += 1
-        if cont > 3:
+        tentativasLogin += 1
+        if tentativasLogin > 3:
             print("\nUsuário Bloqueado, tente novamente mais tarde")
             exit()
         else:
@@ -23,7 +23,7 @@ def loginAdm():
                 print(f'Bem-vindo, {usuarioLogin}!')
                 return False
             else:
-                print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.Numero de tentativas restante {}'.format(3-cont))
+                print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.Numero de tentativas restante {}'.format(3-tentativasLogin))
             login.close()
             senha.close()
 
