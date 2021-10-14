@@ -1,9 +1,12 @@
-import os
 import time
 
 
+def clearScreen():
+    print("\x1b[2J\x1b[H")
+
+
 def loginAdm():
-    clear()
+    clearScreen()
     tentativasLogin = 0
     print('\nPara continuar, digite seu login de Gestor')
     while True:
@@ -31,7 +34,6 @@ def loginAdm():
 
 
 def cadastrarUsuarios(usuarios):
-
     while True:
         try:
             qtdCadastro = int(input("Digite quantos alunos, deseja cadastrar: "))
@@ -187,10 +189,6 @@ def back():
             return False
 
 
-def clear():
-    os.system('cls') or None
-
-
 def menu():
     usuarios = []
     usuariosExcluidos = []
@@ -207,7 +205,7 @@ def menu():
     menuOpcoes['9']="[9] Para encerrar o programa"
 
     while True:
-        clear()
+        clearScreen()
         opcoes = menuOpcoes.values()
         print()
         print("\n" + 28 * "_" + "MENU" + 28 * "_")
