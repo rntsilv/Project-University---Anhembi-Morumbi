@@ -12,7 +12,7 @@ def loginAdm():
     while True:
         tentativasLogin += 1
         if tentativasLogin > 3:
-            print("\nUsuário Bloqueado, tente novamente mais tarde")
+            print("\nUsuário Bloqueado, tente novamente mais tarde...")
             exit()
         else:
             login = open(r'txt\login.txt')
@@ -24,11 +24,12 @@ def loginAdm():
             usuario = login.readlines()
             password = senha.readlines()
             if usuarioLogin in usuario and usuarioSenha in password:
-                print(f'Bem-vindo, {usuarioLogin}!')
-                time.sleep(1.5)
+                print('Seja bem-vindo ao Project University - Anhembi Morumbi!')
+                time.sleep(3.5)
+
                 return False
             else:
-                print('\nVocê deve ter digitado seu nome de usuario errado, por favor verifique.Numero de tentativas restante {}'.format(3-tentativasLogin))
+                print('\nVocê deve ter digitado seu nome de usuário errado, por favor verifique. Número de tentativas restante {}'.format(3-tentativasLogin))
             login.close()
             senha.close()
 
@@ -89,7 +90,9 @@ def buscarUsuarioEmail(usuarios):
             nome, email = usuario
 
             if email == buscar:
-                print(f'\nO aluno foi encontrado como > Nome: {nome} com o Email: {email}')
+                print('\nO aluno foi encontrado como:')
+                print(f'Nome: {nome}') 
+                print(f'E-mail: {email}')
                 break
         else:
             print("[Error]E-mail não encontrado")
@@ -127,9 +130,9 @@ def exibirUsuariosExcluidos(usuariosExcluidos):
     if usuariosExcluidos == []:
         print("[Error] Lista vazia!")
     else:
-        print("\n" + 13*"_" + f"Usuários Excluidos" + 13*"_")
+        print("\n" + 13*"_" + f"Usuários Excluídos" + 13*"_")
         for usuario in usuariosExcluidos:           
-            print("Nome: {}, Email: {}, Motivo: {}".format(usuario['nome'], usuario['email'], usuario['motivo']))
+            print("Nome: {}, E-mail: {}, Motivo: {}".format(usuario['nome'], usuario['email'], usuario['motivo']))
 
 
 def atualizarUsuarios(usuarios):
@@ -141,7 +144,9 @@ def atualizarUsuarios(usuarios):
             nome, email = usuario
 
             if email == buscar:
-                print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
+                print(f'O aluno foi encontrado como:')
+                print(f'Nome: {nome}') 
+                print(f'E-mail: {email}')
 
                 novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").lower()
 
@@ -151,7 +156,7 @@ def atualizarUsuarios(usuarios):
                 novoUsuario = novoNome.title(), email
 
                 usuarios.insert(i, novoUsuario)
-                print(f"\nO nome do Aluno foi atualizado")
+                print(f"\nO nome do aluno foi atualizado, com sucesso.")
                 break
         else:
             print("[Error]E-mail não encontrado")
@@ -164,7 +169,9 @@ def atualizarEmail(usuarios):
         for i,usuario in enumerate(usuarios):
             nome, email = usuario
             if nome == buscar:
-                    print(f'O aluno foi encontrado como > Nome: {nome}, E-mail: {email}')
+                    print('O aluno foi encontrado como:')
+                    print(f'Nome: {nome}')
+                    print(f'E-mail: {email}')
 
                     novoEmail = input("\nDigite o novo e-mail a ser colocado no seu cadastro: ").lower()
 
@@ -174,10 +181,10 @@ def atualizarEmail(usuarios):
                     novoUsuario = nome, novoEmail
 
                     usuarios.insert(i, novoUsuario)
-                    print(f"\nO e-mail do Aluno foi atualizado")
+                    print(f"\nO e-mail do aluno foi atualizado!")
                     break
             else:
-                print("[Error]E-mail não encontrado")
+                print("[Error]E-mail não encontrado!")
 
     
 
@@ -216,7 +223,7 @@ def menu():
 
         print(60 * "_")
 
-        selection = input("Escolha uma opção: ")
+        selection = input("\nEscolha uma opção: ")
         
         if selection =='1':
             cadastrarUsuarios(usuarios)
