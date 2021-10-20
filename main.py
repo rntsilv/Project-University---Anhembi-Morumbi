@@ -196,8 +196,6 @@ def updateStudents():
                 print(f'\nO aluno foi encontrado como:')
                 printStudent(nome)
                 while True:
-                    novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title()
-
                     novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title().strip()
                     if novoNome != "":
                         students[novoNome] = students.pop(nome)
