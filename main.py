@@ -209,30 +209,24 @@ def updateStudents():
             print("[Error]E-mail não encontrado")
 
 
-def atualizarEmail(usuarios):
-    if usuarios == []:
+def updateEmail():
+    global students
+
+    if isEmpty(students):
         print("[Error]Nenhum aluno cadastrado")
     else:
-        buscar = input("Nome do aluno a ser atualizado: ").title().strip()
-
-        for i,usuario in enumerate(usuarios):
-            nome, email = usuario
-
-            if nome == buscar:
+        buscar = input("Digite o e-mail para ser atualizado: ").lower().strip()
+        for nome, email in list(students.items()):
+            nome = nome
+            email = email
+            if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
-                print(f'Nome: {nome}')
-                print(f'E-mail: {email}')
-
+                printStudent(nome)
+                printStudent(email)
                 while True:
-                    novoEmail = input("\nDigite o novo e-mail a ser colocado no seu cadastro: ").lower()
-
+                    novoEmail = input("\nDigite o novo e-mail para ser atualizado: ").title().strip()
                     if novoEmail != "":
-                        excluir = usuarios.index(usuario)
-                        usuarios.pop(excluir)
-
-                        novoUsuario = nome, novoEmail.strip()
-
-                        usuarios.insert(i, novoUsuario)
+                        students[novoEmail] = students.pop(email)
                         print(f"\nO e-mail do aluno foi atualizado, com sucesso.")
                         break
                     else:
@@ -240,7 +234,7 @@ def atualizarEmail(usuarios):
                         continue
                 break
         else:
-            print("[Error]Nome não encontrado")
+            print("[Error]E-mail não encontrado")
 
     
 def back():
@@ -280,7 +274,7 @@ def menu():
         elif selection == '6': 
             atualizarUsuarios(usuarios)
         elif selection == '7': 
-            atualizarEmail(usuarios)
+            updateEmail(usuarios)
         elif selection == '8':
             exibirUsuariosExcluidos(usuariosExcluidos)    
         elif selection == '9': 
