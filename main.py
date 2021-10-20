@@ -112,11 +112,11 @@ def registerUsers(students):
     print("\n" + 10*"_" + f"Cadastro de Usuários" + 10*"_")
 
     while qtdCadastro != contador:
-        name = input("\nDigite o nome completo do aluno: ").title()
-        email = input("Digite o e-mail do aluno: ").lower()
+        name = input("\nDigite o nome completo do aluno: ").title().strip()
+        email = input("Digite o e-mail do aluno: ").lower().strip()
 
         if name != '' and email != '':
-            students.append((name.strip(), email.strip()))
+            students.update({name : email})
             contador += 1
         else:
             print("[Error]Não cadastramos informações em branco.")
@@ -140,43 +140,50 @@ def buscarUsuarioEmail(usuarios):
             break
 
 
-def removerUsuarios(usuarios, usuariosExcluidos):
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
+def deleteStudents():
+    global students
+
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input('E-mail do aluno a ser removido: ').lower()
-        for usuario in usuarios:
-            nome, email = usuario
+        for  usuario in students:
+            nome = usuario.key()
+            email = usuario.value()
 
-            if email == buscar:
+            if usuario['email'] == buscar:
                 print(f'\nO aluno foi encontrado como:')
                 print(f'Nome: {nome}') 
                 print(f'E-mail: {email}')
                 motivoExclusao = input("\nQual motivo da exclusão?: ")
                 atualizar = input("\nDeseja remover o cadastro do aluno?[s/n]: ").lower()
-                excluidos = {'nome': nome,'email': email,'motivo': motivoExclusao}
                 if atualizar in ['s', 'sim', 'y', 'yes']:
-                    excluir = usuarios.index(usuario)
-                    usuariosExcluidos.append(excluidos)
-                    usuarios.pop(excluir)
+                    students.pop(nome)
                     print(f"\nO cadastro do aluno foi excluído")
                 elif atualizar in ['n', 'nao', 'no', 'não']:
                     print("\nVoltando ao menu")
                 else:
                     print("\n[Error]Não entendi, pode repetir?")
                     continue
+                with open(r'\txtSrc\deleted.txt','a') as deleteds:
+                    deleteds.write(f'Nome: {nome}, Email: {email}, Motivo {motivoExclusao}\n')
+
+
             else:
                 print(f'[Error]E-mail não encontrado')
             break
 
 
-def exibirUsuariosExcluidos(usuariosExcluidos):
-    if usuariosExcluidos == []:
-        print("[Error] Lista vazia!")
-    else:
-        print("\n" + 13*"_" + f"Usuários Excluídos" + 13*"_")
-        for usuario in usuariosExcluidos:           
-            print("\nNome: {}\nE-mail: {}\nMotivo: {}".format(usuario['nome'], usuario['email'], usuario['motivo']))
+def showDeletedRegisters():
+    printFile(r'\txtSrc\deleted.txt')
+    clearDeleted = input("Deseja limpar a lista?")
+    if clearDeleted in ['s', 'sim', 'y', 'yes']:
+        with open(r'\txtSrc\deleted.txt','w'):
+            pass
+    
+
+
+
 
 
 def atualizarUsuarios(usuarios):
