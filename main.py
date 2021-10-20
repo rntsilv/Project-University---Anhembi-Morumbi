@@ -147,9 +147,15 @@ def deleteStudents():
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input('E-mail do aluno a ser removido: ').lower()
+<<<<<<< HEAD
         for  nome, email in list(students.items()):
             nome = nome
             email = email
+=======
+        for  usuario in students:
+            nome = usuario.keys()
+            email = usuario.values()
+>>>>>>> 17c8a7d14e0e1b7ab17cdb07447f72237b8cdc61
 
             if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
