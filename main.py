@@ -19,7 +19,23 @@ def showHelp():
     printFile("help")
 
 
-def showSortedRegister():
+def findKeyByValue(value):
+    global students
+
+    if value not in students.values():
+        return None
+    else:
+        return students.keys()[students.values().index(value)]
+
+
+def printStudent(name):
+    global students
+
+    print("Nome :", name, "\n")
+    print("E-mail: ", students[name])
+
+
+def showSortedByRegister():
     global students
 
     if isEmpty(students):
@@ -27,11 +43,10 @@ def showSortedRegister():
     else:
         print("Lista de alunos (ordenada alfabeticamente):")
         for name in students.values():
-            print(f"Nome: ", name, "\n")
-            print(f"E-mail: ", students[name], "\n\n")
+            printStudent(name)
 
 
-def showSortedName():
+def showSortedByName():
     global students
 
     if isEmpty(students):
@@ -39,11 +54,11 @@ def showSortedName():
     else:
         print("Lista de alunos (ordenada alfabeticamente):")
         for name in sorted(students.keys()):
-            print(f"Nome: ", name, "\n")
-            print(f"E-mail: ", students[name], "\n\n")
+            printStudent(name)
+            print()
 
 
-def showSortedEmail():
+def showSortedByEmail():
     global students
 
     if isEmpty(students):
@@ -51,15 +66,39 @@ def showSortedEmail():
     else:
         print("Lista de alunos (ordenada alfabeticamente):")
         for name in sorted(students.values()):
-            print(f"Nome: ", name, "\n")
-            print(f"E-mail: ", students[name], "\n\n")
+            printStudent(name)
+            print()
+
+
+def searchByName():
+    global students
+
+    name = input("Nome do aluno: ")
+
+    if name not in students.keys():
+        print("[Erro] Aluno não encontrado.")
+    else:
+        printStudent(name)
+
+
+def searchByEmail():
+    global students
+
+    email = input("E-mail do aluno: ")
+
+    if email not in students.values():
+        print("[Erro] Aluno não encontrado.")
+    else:
+        printStudent(findKeyByValue(email))
 
 
 COMMANDS = {
     "help": showHelp,
-    "list/r": showSortedRegister,
-    "list/n": showSortedName,
-    "list/e": showSortedEmail,
+    "list/r": showSortedByRegister,
+    "list/n": showSortedByName,
+    "list/e": showSortedByEmail,
+    "search/n": searchByName,
+    "search/e": searchByEmail,
 }
 
 
