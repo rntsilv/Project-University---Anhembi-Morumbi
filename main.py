@@ -1,37 +1,66 @@
-import time
+students = {}
+
+
+def isEmpty(object):
+    return bool(object)
 
 
 def clearScreen():
-    print("\x1b[2J\x1b[H")
+    print("\x1b[H\x1b[2J")
 
 
-def loginAdm():
-    clearScreen()
-    tentativasLogin = 0
-    print('\nPara continuar, digite seu login de Gestor')
-    while True:
-        tentativasLogin += 1
-        if tentativasLogin > 3:
-            print("\nUsuário Bloqueado, tente novamente mais tarde...")
-            exit()
-        else:
-            login = open(r'txt\login.txt')
-            senha = open(r'txt\senha.txt')
+def printFile(filename):
+    file = open(f"txtSrc/{filename}.txt")
+    for line in file.readlines():
+        print(line)
 
-            usuarioLogin = input('\nDigite o seu nome de usuário: ').lower()
-            usuarioSenha = input('Digite a sua senha: ')
 
-            usuario = login.readlines()
-            password = senha.readlines()
-            if usuarioLogin in usuario and usuarioSenha in password:
-                print('Seja bem-vindo ao Project University - Anhembi Morumbi!')
-                time.sleep(2.0)
+def showHelp():
+    printFile("help")
 
-                return False
-            else:
-                print('\nVocê deve ter digitado seu nome de usuário errado, por favor verifique. Número de tentativas restante {}'.format(3-tentativasLogin))
-            login.close()
-            senha.close()
+
+def showSortedRegister():
+    global students
+
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
+    else:
+        print("Lista de alunos (ordenada alfabeticamente):")
+        for name in students.values():
+            print(f"Nome: ", name, "\n")
+            print(f"E-mail: ", students[name], "\n\n")
+
+
+def showSortedName():
+    global students
+
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
+    else:
+        print("Lista de alunos (ordenada alfabeticamente):")
+        for name in sorted(students.keys()):
+            print(f"Nome: ", name, "\n")
+            print(f"E-mail: ", students[name], "\n\n")
+
+
+def showSortedEmail():
+    global students
+
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
+    else:
+        print("Lista de alunos (ordenada alfabeticamente):")
+        for name in sorted(students.values()):
+            print(f"Nome: ", name, "\n")
+            print(f"E-mail: ", students[name], "\n\n")
+
+
+COMMANDS = {
+    "help": showHelp,
+    "list/r": showSortedRegister,
+    "list/n": showSortedName,
+    "list/e": showSortedEmail,
+}
 
 
 def cadastrarUsuarios(usuarios):
@@ -58,30 +87,7 @@ def cadastrarUsuarios(usuarios):
             break
 
 
-def exibirOrdemAlfabetica(usuarios):
-
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
-    else:
-        usuariosSorteados = sorted(usuarios)
-
-        print("\n" + 13*"_" + f"Ordem Alfabética" + 13*"_")
-        for usuario in usuariosSorteados:
-            print(f'\nNome: {usuario[0]}\nE-mail: {usuario[1]}')
-
-
-def usuariosCadastrados(usuarios):
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
-    else:
-        print("\n" + 13*"_" + f"Usuários" + 13*"_")
-        for usuario in usuarios:
-            nome, email = usuario
-            print(f'\nNome: {nome}\nE-mail: {email}')
-
-
 def buscarUsuarioEmail(usuarios):
-   
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
     else:
@@ -218,22 +224,10 @@ def menu():
     usuariosExcluidos = []
     menuOpcoes = {}
 
-    menuOpcoes['1']="[1] Para cadastrar um novo aluno" 
-    menuOpcoes['2']="[2] Para exibir a lista de alunos(Por ordem de cadastro)"
-    menuOpcoes['3']="[3] Para exibir a lista de aluno(Por ordem Alfabética)"
-    menuOpcoes['4']="[4] Para buscar um aluno por e-mail de cadastro"
-    menuOpcoes['5']="[5] Para remover o cadastro de um aluno"
-    menuOpcoes['6']="[6] Para atualizar o nome de um aluno"
-    menuOpcoes['7']="[7] Para atualizar o e-mail de um aluno"
-    menuOpcoes['8']="[8] Para exibir os alunos excluidos"
-    menuOpcoes['9']="[9] Para encerrar o programa"
-
     while True:
         clearScreen()
         opcoes = menuOpcoes.values()
-        print()
-        print("\n" + 28 * "_" + "MENU" + 28 * "_")
-        print()
+        print("\n\n" + 28 * "_" + "MENU" + 28 * "_" + "\n")
 
         for escolha in opcoes:
             print(escolha)
@@ -267,7 +261,6 @@ def menu():
 
 
 def main():
-    loginAdm()
     while True:
         menu()
 

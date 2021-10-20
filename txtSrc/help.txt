@@ -1,0 +1,18 @@
+LISTA DE COMANDOS
+
+    help          Exibe este arquivo.
+    register      Cadastra um aluno novo.
+    list/r        Exibe a lista de alunos ordenada por cadastro.
+    list/n        Exibe a lista de alunos ordenada por nome.
+    list/e        Exibe a lista de alunos ordenada por e-mail.
+    list/b        Exibe a lista de alunos excluídos.
+    clearbin      Limpa a lista de alunos excluídos.
+    search/n      Busca um aluno por nome.
+    search/e      Busca um aluno por e-mail.
+    remove/n      Remove um aluno com base em seu nome.
+    remove/e      Remove um aluno com base em seu e-mail.
+    update/n      Altera o nome de um aluno.
+    update/e      Altera o e-mail de um aluno.
+    update/l      Altera o login de administrador.
+    update/p      Altera a senha de administrador.
+    end           Interrompe a execução do programa.
