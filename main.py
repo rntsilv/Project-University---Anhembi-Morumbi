@@ -148,8 +148,8 @@ def deleteStudents():
     else:
         buscar = input('E-mail do aluno a ser removido: ').lower()
         for  usuario in students:
-            nome = usuario.key()
-            email = usuario.value()
+            nome = usuario.keys()
+            email = usuario.values()
 
             if usuario['email'] == buscar:
                 print(f'\nO aluno foi encontrado como:')
