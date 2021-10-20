@@ -101,31 +101,28 @@ COMMANDS = {
     "search/e": searchByEmail,
 }
 
+def registerUsers(students):
+    try:
+        qtdCadastro = int(input("Digite quantos alunos, deseja cadastrar: "))
+    except ValueError:
+        print("\n[Error]Opção inválida, por favor repita")
+        return 
+    
+    contador = 0
+    print("\n" + 10*"_" + f"Cadastro de Usuários" + 10*"_")
 
-def cadastrarUsuarios(usuarios):
-    while True:
-        try:
-            qtdCadastro = int(input("Digite quantos alunos, deseja cadastrar: "))
-            contador = 0
-            print("\n" + 10*"_" + f"Cadastro de Usuários" + 10*"_")
+    while qtdCadastro != contador:
+        name = input("\nDigite o nome completo do aluno: ").title()
+        email = input("Digite o e-mail do aluno: ").lower()
 
-            while qtdCadastro != contador:
-                nome = input("\nDigite o nome completo do aluno: ").title()
-                email = input("Digite o e-mail do aluno: ").lower()
-
-                if nome != '' and email != '':
-                    usuarios.append((nome.strip(), email.strip()))
-                    contador += 1
-                else:
-                    print("[Error]Não salvamos espaço em branco amigo")    
-                    continue   
-            break
-
-        except ValueError:
-            print("\n[Error]Opção inválida, por favor repita")
-            break
-
-
+        if name != '' and email != '':
+            students.append((name.strip(), email.strip()))
+            contador += 1
+        else:
+            print("[Error]Não cadastramos informações em branco.")
+            continue
+        
+        
 def buscarUsuarioEmail(usuarios):
     if usuarios == []:
         print("[Error]Nenhum aluno cadastrado")
@@ -276,7 +273,7 @@ def menu():
         selection = input("\nEscolha uma opção: ")
         
         if selection =='1':
-            cadastrarUsuarios(usuarios)
+            registerUsers(usuarios)
         elif selection == '2':
             usuariosCadastrados(usuarios)
         elif selection == '3':
