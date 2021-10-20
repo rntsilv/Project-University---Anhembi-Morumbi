@@ -202,6 +202,11 @@ def updateStudents():
                         print(f"\nO nome do aluno foi atualizado, com sucesso.")
                         break
                     else:
+                        print("[Error]Não salvamos espaço em branco amigo")
+                        continue
+                break
+        else:
+            print("[Error]E-mail não encontrado")
 
 
 def atualizarEmail(usuarios):
