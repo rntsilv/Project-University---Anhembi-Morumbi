@@ -147,11 +147,11 @@ def deleteStudents():
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input('E-mail do aluno a ser removido: ').lower()
-        for  usuario in students:
-            nome = usuario.key()
-            email = usuario.value()
+        for  nome, email in list(students.items()):
+            nome = nome
+            email = email
 
-            if usuario['email'] == buscar:
+            if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
                 print(f'Nome: {nome}') 
                 print(f'E-mail: {email}')
@@ -175,7 +175,7 @@ def deleteStudents():
 
 
 def showDeletedRegisters():
-    printFile(r'\txtSrc\deleted.txt')
+    printFile(r'\txtSrc\deleted')
     clearDeleted = input("Deseja limpar a lista?")
     if clearDeleted in ['s', 'sim', 'y', 'yes']:
         with open(r'\txtSrc\deleted.txt','w'):
