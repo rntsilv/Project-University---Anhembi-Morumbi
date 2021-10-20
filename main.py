@@ -147,15 +147,9 @@ def deleteStudents():
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input('E-mail do aluno a ser removido: ').lower()
-<<<<<<< HEAD
         for  nome, email in list(students.items()):
             nome = nome
             email = email
-=======
-        for  usuario in students:
-            nome = usuario.keys()
-            email = usuario.values()
->>>>>>> 17c8a7d14e0e1b7ab17cdb07447f72237b8cdc61
 
             if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
@@ -192,31 +186,25 @@ def showDeletedRegisters():
 
 
 
-def atualizarUsuarios(usuarios):
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
+def updateStudents():
+    global students
+
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input("E-mail do aluno a ser atualizado: ").lower().strip()
 
-        for i,usuario in enumerate(usuarios):
-            nome, email = usuario
-
+        for  nome, email in list(students.items()):
+            nome = nome
+            email = email
             if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
                 print(f'Nome: {nome}') 
                 print(f'E-mail: {email}')
-
-
                 while True:
-                    novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title()
-
+                    novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title().strip()
                     if novoNome != "":
-                        excluir = usuarios.index(usuario)
-                        usuarios.pop(excluir)
-
-                        novoUsuario = novoNome.strip(), email
-
-                        usuarios.insert(i, novoUsuario)
+                        students[novoNome] = students.pop(nome)
                         print(f"\nO nome do aluno foi atualizado, com sucesso.")
                         break
                     else:
