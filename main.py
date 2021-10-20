@@ -154,8 +154,7 @@ def deleteStudents():
 
             if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
-                print(f'Nome: {nome}') 
-                print(f'E-mail: {email}')
+                printStudent(nome)
                 motivoExclusao = input("\nQual motivo da exclusão?: ")
                 atualizar = input("\nDeseja remover o cadastro do aluno?[s/n]: ").lower()
                 if atualizar in ['s', 'sim', 'y', 'yes']:
@@ -183,43 +182,28 @@ def showDeletedRegisters():
             pass
     
 
+def updateStudents():
+    global students
 
-
-
-
-def atualizarUsuarios(usuarios):
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
+    if isEmpty(students):
+        print("[Erro] Nenhum aluno cadastrado.")
     else:
         buscar = input("E-mail do aluno a ser atualizado: ").lower().strip()
-
-        for i,usuario in enumerate(usuarios):
-            nome, email = usuario
-
+        for  nome, email in list(students.items()):
+            nome = nome
+            email = email
             if email == buscar:
                 print(f'\nO aluno foi encontrado como:')
-                print(f'Nome: {nome}') 
-                print(f'E-mail: {email}')
-
-
+                printStudent(nome)
                 while True:
                     novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title()
 
+                    novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title().strip()
                     if novoNome != "":
-                        excluir = usuarios.index(usuario)
-                        usuarios.pop(excluir)
-
-                        novoUsuario = novoNome.strip(), email
-
-                        usuarios.insert(i, novoUsuario)
+                        students[novoNome] = students.pop(nome)
                         print(f"\nO nome do aluno foi atualizado, com sucesso.")
                         break
                     else:
-                        print("[Error]Não salvamos espaço em branco amigo")
-                        continue
-                break
-        else:
-            print("[Error]E-mail não encontrado")
 
 
 def atualizarEmail(usuarios):
