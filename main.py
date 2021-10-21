@@ -39,14 +39,13 @@ def findKeyByValue(value):
     if value not in students.values():
         return None
     else:
-        return students.keys()[students.values().index(value)]
+        return list(students.keys())[list(students.values()).index(value)]
 
 
 def printStudent(name):
     global students
 
-    print("Nome :", name, "\n")
-    print("E-mail: ", students[name])
+    print(f"Nome: {name}\nE-mail: {students[name]}")
 
 
 def showSortedByRegister():
@@ -56,8 +55,8 @@ def showSortedByRegister():
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         print("Lista de alunos (ordenada alfabeticamente):")
-        for name in students.values():
-            printStudent(name)
+        for email in students.values():
+            printStudent(findKeyByValue(email))
 
 
 def showSortedByName():
@@ -78,8 +77,8 @@ def showSortedByEmail():
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         print("Lista de alunos (ordenada alfabeticamente):")
-        for name in sorted(students.values()):
-            printStudent(name)
+        for email in sorted(students.values()):
+            printStudent(findKeyByValue(email))
 
 
 def searchByName():
@@ -117,7 +116,7 @@ def registerStudent():
     try:
         registerAmount = int(input("Digite quantos alunos, deseja cadastrar: "))
     except ValueError:
-        print("\n[Error]Opção inválida, por favor repita")
+        print("\n[Error] Opção inválida, por favor tente novamente mais tarde.")
         return 
     
     for _i in range(registerAmount):
