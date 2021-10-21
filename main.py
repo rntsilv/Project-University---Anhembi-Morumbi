@@ -12,7 +12,7 @@ def clearScreen():
 def printFile(filename):
     file = open(f"txtSrc/{filename}.txt")
     for line in file.readlines():
-        print(line)
+        print(line, end="")
 
 
 def storeRemoved(name, email, reason):
@@ -223,7 +223,9 @@ def queryCommand():
     if chosenCommand not in COMMAND_LIST:
         print("[Erro] Comando não encontrado.")
     else:
+        print()
         COMMANDS[chosenCommand]()
+        print()
 
 
 def main():
