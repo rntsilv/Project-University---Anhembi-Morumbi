@@ -15,6 +15,20 @@ def printFile(filename):
         print(line)
 
 
+def storeRemoved(name, email, reason):
+    with open("txtSrc/deleted.txt", "a") as file:
+        file.write(f"Nome: {name}\nE-mail: {email}\nMotivo: {reason}\n")
+
+
+def clearRemoved():
+    with open("txtSrc/deleted.txt", "w"):
+        pass
+
+
+def printRemoved():
+    printFile("deleted")
+
+
 def showHelp():
     printFile("help")
 
@@ -55,7 +69,6 @@ def showSortedByName():
         print("Lista de alunos (ordenada alfabeticamente):")
         for name in sorted(students.keys()):
             printStudent(name)
-            print()
 
 
 def showSortedByEmail():
@@ -67,7 +80,6 @@ def showSortedByEmail():
         print("Lista de alunos (ordenada alfabeticamente):")
         for name in sorted(students.values()):
             printStudent(name)
-            print()
 
 
 def searchByName():
@@ -84,7 +96,7 @@ def searchByName():
 def searchByEmail():
     global students
 
-    email = input("E-mail do aluno: ")
+    email = input("E-mail do aluno: ").strip().lower()
 
     if email not in students.values():
         print("[Erro] Aluno não encontrado.")
@@ -92,95 +104,72 @@ def searchByEmail():
         printStudent(findKeyByValue(email))
 
 
-COMMANDS = {
-    "help": showHelp,
-    "list/r": showSortedByRegister,
-    "list/n": showSortedByName,
-    "list/e": showSortedByEmail,
-    "search/n": searchByName,
-    "search/e": searchByEmail,
-}
+def registerStudent():
+    global students
 
-def registerUsers(students):
+    registerAmount = 0
     try:
-        qtdCadastro = int(input("Digite quantos alunos, deseja cadastrar: "))
+        registerAmount = int(input("Digite quantos alunos, deseja cadastrar: "))
     except ValueError:
         print("\n[Error]Opção inválida, por favor repita")
         return 
     
-    contador = 0
-    print("\n" + 10*"_" + f"Cadastro de Usuários" + 10*"_")
+    for _i in range(registerAmount):
+        name = input("Digite o nome completo do aluno: ").strip().title()
+        email = input("Digite o e-mail do aluno: ").strip().lower()
 
-    while qtdCadastro != contador:
-        name = input("\nDigite o nome completo do aluno: ").title().strip()
-        email = input("Digite o e-mail do aluno: ").lower().strip()
-
-        if name != '' and email != '':
-            students.update({name : email})
-            contador += 1
+        if isEmpty(name) or isEmpty(email):
+            print("[Erro] Não cadastramos informações em branco.")
         else:
-            print("[Error]Não cadastramos informações em branco.")
-            continue
-        
-        
-def buscarUsuarioEmail(usuarios):
-    if usuarios == []:
-        print("[Error]Nenhum aluno cadastrado")
-    else:
-        buscar = input('E-mail do aluno: ').lower()
-        for usuario in usuarios:
-            nome, email = usuario
-
-            if email == buscar:
-                print('\nO aluno foi encontrado como:')
-                print(f'Nome: {nome}') 
-                print(f'E-mail: {email}')
-            else:
-                print("[Error]E-mail não encontrado")
-            break
+            students.update({name: email})
 
 
-def deleteStudents():
+def removeByName():
     global students
 
-    if isEmpty(students):
-        print("[Erro] Nenhum aluno cadastrado.")
+    name = input("Nome do aluno a ser removido: ").strip().title()
+
+    if name not in students.keys():
+        print("[Erro] Aluno não encontrado.")
     else:
-        buscar = input('E-mail do aluno a ser removido: ').lower()
-        for  nome, email in list(students.items()):
-            nome = nome
-            email = email
+        reason = input("Motivo da exclusão: ")
+        storeRemoved(name, students[name], reason)
+        del students[name]
 
 
-            if email == buscar:
-                print(f'\nO aluno foi encontrado como:')
-                printStudent(nome)
-                motivoExclusao = input("\nQual motivo da exclusão?: ")
-                atualizar = input("\nDeseja remover o cadastro do aluno?[s/n]: ").lower()
-                if atualizar in ['s', 'sim', 'y', 'yes']:
-                    students.pop(nome)
-                    print(f"\nO cadastro do aluno foi excluído")
-                elif atualizar in ['n', 'nao', 'no', 'não']:
-                    print("\nVoltando ao menu")
-                else:
-                    print("\n[Error]Não entendi, pode repetir?")
-                    continue
-                with open(r'\txtSrc\deleted.txt','a') as deleteds:
-                    deleteds.write(f'Nome: {nome}, Email: {email}, Motivo {motivoExclusao}\n')
+def removeByEmail():
+    global students
+
+    email = input("E-mail do aluno a ser removido: ").strip().lower()
+    name = findKeyByValue(email)
+
+    if name not in students.keys():
+        print("[Erro] Aluno não encontrado.")
+    else:
+        reason = input("Motivo da exclusão: ")
+        storeRemoved(name, students[name], reason)
+        del students[name]
 
 
-            else:
-                print(f'[Error]E-mail não encontrado')
-            break
+def stopExecution():
+    exit()
+        
+        
+COMMANDS = {
+    "help": showHelp,
+    "register": registerStudent,
+    "list/r": showSortedByRegister,
+    "list/n": showSortedByName,
+    "list/e": showSortedByEmail,
+    "list/b": printRemoved,
+    "clearbin": clearRemoved,
+    "search/n": searchByName,
+    "search/e": searchByEmail,
+    "remove/n": removeByName,
+    "remove/e": removeByEmail,
+    "end": stopExecution,
+}
 
-
-def showDeletedRegisters():
-    printFile(r'\txtSrc\deleted')
-    clearDeleted = input("Deseja limpar a lista?")
-    if clearDeleted in ['s', 'sim', 'y', 'yes']:
-        with open(r'\txtSrc\deleted.txt','w'):
-            pass
-    
 
 def updateStudents():
     global students
@@ -188,12 +177,10 @@ def updateStudents():
     if isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
-        buscar = input("E-mail do aluno a ser atualizado: ").lower().strip()
-        for  nome, email in list(students.items()):
-            nome = nome
-            email = email
+        buscar = input("E-mail do aluno a ser atualizado: ").strip().lower()
+        for nome, email in students.items():
             if email == buscar:
-                print(f'\nO aluno foi encontrado como:')
+                print("\nO aluno foi encontrado como:")
                 printStudent(nome)
                 while True:
                     novoNome = input("\nDigite o novo nome a ser colocado no seu cadastro: ").title().strip()
