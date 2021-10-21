@@ -2,7 +2,7 @@ students = {}
 
 
 def isEmpty(object):
-    return bool(object)
+    return not bool(object)
 
 
 def clearScreen():
