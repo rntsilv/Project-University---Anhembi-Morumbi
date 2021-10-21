@@ -10,13 +10,13 @@ def clearScreen():
 
 
 def printFile(filename):
-    file = open(f"txtSrc/{filename}.txt")
-    for line in file.readlines():
-        print(line, end="")
+    with open(f"txtSrc/{filename}.txt", mode="r", encoding="utf-8") as file:
+        for line in file.readlines():
+            print(line, end="")
 
 
 def storeRemoved(name, email, reason):
-    with open("txtSrc/deleted.txt", "a") as file:
+    with open("txtSrc/deleted.txt", mode="a", encoding="utf-8") as file:
         file.write(f"Nome: {name}\nE-mail: {email}\nMotivo: {reason}\n")
 
 
