@@ -215,58 +215,20 @@ COMMANDS = {
     "end": stopExecution,
 }
 
-
-def back():
-    while True:
-        back = str(input('\nPRESSIONE "ENTER" PARA VOLTAR AO MENU'))
-        if not back:
-            return False
+COMMAND_LIST = COMMANDS.keys()
 
 
-def menu():
-    usuarios = []
-    usuariosExcluidos = []
-    menuOpcoes = {}
-
-    while True:
-        clearScreen()
-        opcoes = menuOpcoes.values()
-        print("\n\n" + 28 * "_" + "MENU" + 28 * "_" + "\n")
-
-        for escolha in opcoes:
-            print(escolha)
-
-        print(60 * "_")
-
-        selection = input("\nEscolha uma opção: ")
-        
-        if selection =='1':
-            registerUsers(usuarios)
-        elif selection == '2':
-            usuariosCadastrados(usuarios)
-        elif selection == '3':
-            exibirOrdemAlfabetica(usuarios)
-        elif selection == '4': 
-            buscarUsuarioEmail(usuarios)
-        elif selection == '5': 
-            removerUsuarios(usuarios,usuariosExcluidos )
-        elif selection == '6': 
-            atualizarUsuarios(usuarios)
-        elif selection == '7': 
-            updateEmail(usuarios)
-        elif selection == '8':
-            exibirUsuariosExcluidos(usuariosExcluidos)    
-        elif selection == '9': 
-            exit()
-        else: 
-            print("[Error]Opção inválida")
-
-        back()
+def queryCommand():
+    chosenCommand = input("> ").strip().lower()
+    if chosenCommand not in COMMAND_LIST:
+        print("[Erro] Comando não encontrado.")
+    else:
+        COMMANDS[chosenCommand]()
 
 
 def main():
     while True:
-        menu()
+        queryCommand()
 
 
 if __name__ == "__main__":
