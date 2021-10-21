@@ -21,7 +21,7 @@ def storeRemoved(name, email, reason):
 
 
 def clearRemoved():
-    with open("txtSrc/deleted.txt", "w"):
+    with open("txtSrc/deleted.txt", mode="w", encoding="utf-8"):
         pass
 
 
