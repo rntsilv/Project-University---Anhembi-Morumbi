@@ -1,19 +1,6 @@
+import config
+
 students = {}
-
-
-def isEmpty(object):
-    return not bool(object)
-
-
-def clearScreen():
-    print("\x1b[H\x1b[2J")
-
-
-def printFile(filename):
-    with open(f"txtSrc/{filename}.txt", mode="r", encoding="utf-8") as file:
-        for line in file.readlines():
-            print(line, end="")
-
 
 def storeRemoved(name, email, reason):
     with open("txtSrc/deleted.txt", mode="a", encoding="utf-8") as file:
@@ -26,11 +13,11 @@ def clearRemoved():
 
 
 def printRemoved():
-    printFile("deleted")
+    config.printFile("deleted")
 
 
 def showHelp():
-    printFile("help")
+    config.printFile("help")
 
 
 def findKeyByValue(value):
@@ -51,21 +38,21 @@ def printStudent(name):
 def showSortedByRegister():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
-        print("Lista de alunos (ordenada alfabeticamente):")
-        for email in students.values():
-            printStudent(findKeyByValue(email))
+        print("Lista de alunos (ordenada por cadastro):")
+        for name in students.values():
+            printStudent(findKeyByValue(name))
 
 
 def showSortedByName():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
-        print("Lista de alunos (ordenada alfabeticamente):")
+        print("Lista de alunos (ordenada alfabeticamente por Nome):")
         for name in sorted(students.keys()):
             printStudent(name)
 
@@ -73,10 +60,10 @@ def showSortedByName():
 def showSortedByEmail():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
-        print("Lista de alunos (ordenada alfabeticamente):")
+        print("Lista de alunos (ordenada alfabeticamente por E-mail):")
         for email in sorted(students.values()):
             printStudent(findKeyByValue(email))
 
@@ -84,7 +71,7 @@ def showSortedByEmail():
 def searchByName():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -98,7 +85,7 @@ def searchByName():
 def searchByEmail():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -123,7 +110,7 @@ def registerStudent():
         name = input("Digite o nome completo do aluno: ").strip().title()
         email = input("Digite o e-mail do aluno: ").strip().lower()
 
-        if isEmpty(name) or isEmpty(email):
+        if config.isEmpty(name) or config.isEmpty(email):
             print("[Erro] Não cadastramos informações em branco.")
         else:
             students.update({name: email})
@@ -132,7 +119,7 @@ def registerStudent():
 def removeByName():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -148,7 +135,7 @@ def removeByName():
 def removeByEmail():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -165,7 +152,7 @@ def removeByEmail():
 def updateName():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -181,7 +168,7 @@ def updateName():
 def updateEmail():
     global students
 
-    if isEmpty(students):
+    if config.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -191,6 +178,26 @@ def updateEmail():
     else:
         newEmail = input("Novo e-mail: ").strip().lower()
         students[findKeyByValue(email)] = newEmail
+
+
+def updateUsername():
+    newUsername = input("Digite o novo login do administrador: ")
+    config.inputFile("login", newUsername)
+
+
+def updatePassword():
+    print("Obs: A senha precisa ter entre 4 á 8 digitos\n")
+    newPassword = input("Digite a nova senha do administrador: ")
+    if len(newPassword) >= 4 and len(newPassword) <= 8:
+        config.inputFile("senha", newPassword)
+    else:
+        print("[Error] Não foi possivel cadastrar essa senha")
+
+
+def restoreLogin():
+    config.inputFile("login", config.defaultLogin)
+    config.inputFile("senha", config.defaultPassword)
+    print("Login de administrador restaurado")
 
 
 def stopExecution():
@@ -209,8 +216,11 @@ COMMANDS = {
     "search/e": searchByEmail,
     "remove/n": removeByName,
     "remove/e": removeByEmail,
+    "restore/a": restoreLogin,
     "update/n": updateName,
     "update/e": updateEmail,
+    "update/l": updateUsername,
+    "update/p": updatePassword,
     "end": stopExecution,
 }
 
@@ -228,6 +238,7 @@ def queryCommand():
 
 
 def main():
+    config.loginAdm()
     while True:
         queryCommand()
 

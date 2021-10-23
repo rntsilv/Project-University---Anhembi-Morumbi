@@ -11,6 +11,7 @@ LISTA DE COMANDOS
     search/e      Busca um aluno por e-mail.
     remove/n      Remove um aluno com base em seu nome.
     remove/e      Remove um aluno com base em seu e-mail.
+    restore/a     Restaura para login e senha padrão do administrador.
     update/n      Altera o nome de um aluno.
     update/e      Altera o e-mail de um aluno.
     update/l      Altera o login de administrador.
