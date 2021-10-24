@@ -1,4 +1,4 @@
-import config, time
+import config
 
 students = {}
 
@@ -185,7 +185,7 @@ def updateUsername():
 
 
 def updatePassword():
-    print("Obs: A senha precisa ter entre 4 á 8 digitos\n")
+    print("Obs: A senha precisa ter entre 4 e 8 digitos\n")
     newPassword = input("Digite a nova senha do administrador: ")
     if len(newPassword) >= 4 and len(newPassword) <= 8:
         config.inputFile("senha", newPassword)
@@ -243,7 +243,6 @@ COMMAND_LIST = COMMANDS.keys()
 
 
 def queryCommand():
-    config.pressCommand()
     chosenCommand = input("> ").strip().lower()
     if chosenCommand not in COMMAND_LIST:
         print("[Erro] Comando não encontrado.")
