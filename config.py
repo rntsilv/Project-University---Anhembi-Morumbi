@@ -61,17 +61,18 @@ def querryLogin():
 
 def loginAdm():
     while True:
-        print("\nBem-vindo, acesse com seu login de administrador\n")
+        print("Bem-vindo, acesse com seu login de administrador\n")
         userName = input("Username: ")
         password = input("Password: ")
 
         login = userName.lower() + password
 
         if login == querryLogin():
-            print("Acesso concedido")
+            print()
+            animated("Concedendo acesso")
             break
         else:
-            print("[Error] usuario ou senha incorretos amigone")
+            print("\n[Erro] Usuário ou senha incorretos, tente novamente.")
             continue
 
 
