@@ -1,4 +1,4 @@
-import config
+import config, time
 
 students = {}
 
@@ -8,9 +8,8 @@ def storeRemoved(name, email, reason):
 
 
 def clearRemoved():
-    with open("txtSrc/deleted.txt", mode="w", encoding="utf-8"):
-        pass
-
+    with open("txtSrc/deleted.txt", mode="w", encoding="utf-8") as file:
+        file.write("")
 
 def printRemoved():
     config.printFile("deleted")
@@ -200,6 +199,20 @@ def restoreLogin():
     print("Login de administrador restaurado")
 
 
+def encryptPassword():
+    encryptpassword = config.encrypt(config.openFile("senha"))
+    config.inputFile("senha", encryptpassword)
+    config.animated("Criptografando")
+    print(f"\nSua senha encriptografada é: {encryptpassword}")
+
+
+def descryptPassword():
+    descryptpassword = config.descrypt(config.openFile("senha"))
+    config.animated("Descriptografando")
+    config.inputFile("senha", descryptpassword)
+    print(f"\nSua senha descriptografada é: {descryptpassword}")
+
+
 def stopExecution():
     exit()
         
@@ -221,6 +234,8 @@ COMMANDS = {
     "update/e": updateEmail,
     "update/l": updateUsername,
     "update/p": updatePassword,
+    "update/c": encryptPassword,
+    "update/d": descryptPassword,
     "end": stopExecution,
 }
 
@@ -228,6 +243,7 @@ COMMAND_LIST = COMMANDS.keys()
 
 
 def queryCommand():
+    config.pressCommand()
     chosenCommand = input("> ").strip().lower()
     if chosenCommand not in COMMAND_LIST:
         print("[Erro] Comando não encontrado.")

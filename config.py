@@ -1,5 +1,5 @@
 from string import ascii_letters, digits, punctuation
-
+import time, sys
 
 defaultLogin = "admin"
 defaultPassword = "admin1234"
@@ -61,6 +61,7 @@ def querryLogin():
 
 def loginAdm():
     while True:
+        print("\nBem-vindo, acesse com seu login de administrador\n")
         userName = input("Username: ")
         password = input("Password: ")
 
@@ -73,3 +74,16 @@ def loginAdm():
             print("[Error] usuario ou senha incorretos amigone")
             continue
 
+
+def pressCommand():
+    while True:
+        pressCommand = str(input('\nPRESSIONE "ENTER" PARA CONTINUAR'))
+        if not pressCommand:
+            break
+
+def animated(loading):
+    chars = "|/_\|/_\|" 
+    for char in chars:
+        sys.stdout.write("\r" + loading + " " + char)
+        time.sleep(0.3)
+        sys.stdout.flush()

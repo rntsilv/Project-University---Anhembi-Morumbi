@@ -20,7 +20,9 @@
 
 #### Bibliotecas Importadas:
 
-* import os
+* import string
+* import time
+* import sys
 
 ## Desenvolvedores:
 * Renato Silva RA: 21449523
