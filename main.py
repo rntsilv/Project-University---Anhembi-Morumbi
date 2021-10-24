@@ -185,18 +185,18 @@ def updateUsername():
 
 
 def updatePassword():
-    print("Obs: A senha precisa ter entre 4 e 8 digitos\n")
+    print("Obs: A senha precisa ter entre 4 á 8 digitos\n")
     newPassword = input("Digite a nova senha do administrador: ")
     if len(newPassword) >= 4 and len(newPassword) <= 8:
         config.inputFile("senha", newPassword)
     else:
-        print("[Error] Não foi possivel cadastrar essa senha")
+        print("[Erro    ] Não foi possivel cadastrar essa senha")
 
 
 def restoreLogin():
     config.inputFile("login", config.defaultLogin)
     config.inputFile("senha", config.defaultPassword)
-    print("Login e senha de administrador restaurados")
+    print("Login de administrador restaurado")
 
 
 def encryptPassword():
@@ -243,20 +243,26 @@ COMMAND_LIST = COMMANDS.keys()
 
 
 def queryCommand():
-    chosenCommand = input("> ").strip().lower()
+    print("Digite \"help\" para ver o menu de opções")
+    chosenCommand = input("\n> ").strip().lower()
     if chosenCommand not in COMMAND_LIST:
         print("[Erro] Comando não encontrado.")
     else:
+        config.pressCommand()
         print()
         COMMANDS[chosenCommand]()
         print()
 
 
 def main():
+    config.clearScreen()
     config.loginAdm()
+    config.clearScreen()
     while True:
         queryCommand()
 
 
 if __name__ == "__main__":
     main()
+    
+    
