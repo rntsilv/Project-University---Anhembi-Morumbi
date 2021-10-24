@@ -196,7 +196,7 @@ def updatePassword():
 def restoreLogin():
     config.inputFile("login", config.defaultLogin)
     config.inputFile("senha", config.defaultPassword)
-    print("Login de administrador restaurado")
+    print("Login e senha de administrador restaurados")
 
 
 def encryptPassword():
