@@ -19,3 +19,4 @@ LISTA DE COMANDOS
     update/c      Criptografa a senha cadastrada.
     update/d      Descriptografa a senha cadastrada.
     end           Interrompe a execução do programa.
+    
