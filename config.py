@@ -49,7 +49,7 @@ def encrypt(sequence):
     return arfic
 
 
-def descrypt(sequence):
+def decrypt(sequence):
     global CHAVE
     CHAVE = len(CARACTERES) - CHAVE
     return encrypt(sequence)
