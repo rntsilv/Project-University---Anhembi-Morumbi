@@ -12,7 +12,7 @@ def getFileContents(filename):
 
 def printFile(filename):
     for line in getFileContents(filename):
-        print(line)
+        print(line, end="")
 
 
 def inputFile(filename, newValue):
