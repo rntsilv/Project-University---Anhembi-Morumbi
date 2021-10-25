@@ -2,12 +2,20 @@ def openEncoded(filename, mode="r"):
     return open(f"txtSrc/{filename}.txt", mode=mode, encoding="utf-8")
 
 
-def getFileContents(filename):
+def getFileLines(filename):
     file = openEncoded(filename)
-    contents = file.readlines()
+    lines = file.readlines()
     file.close()
 
-    return contents
+    return lines
+
+
+def getFileContent(filename):
+    file = openEncoded(filename)
+    content = file.read()
+    file.close()
+
+    return content
 
 
 def printFile(filename):
