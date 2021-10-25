@@ -1,4 +1,4 @@
-import config
+import config, utils, files, console
 
 students = {}
 
@@ -13,11 +13,11 @@ def clearRemoved():
 
 
 def printRemoved():
-    config.printFile("deleted")
+    files.printFile("deleted")
 
 
 def showHelp():
-    config.printFile("help")
+    files.printFile("help")
 
 
 def findKeyByValue(value):
@@ -38,7 +38,7 @@ def printStudent(name):
 def showSortedByRegister():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         print("Lista de alunos (ordenada por cadastro):")
@@ -49,7 +49,7 @@ def showSortedByRegister():
 def showSortedByName():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         print("Lista de alunos (ordenada alfabeticamente por Nome):")
@@ -60,7 +60,7 @@ def showSortedByName():
 def showSortedByEmail():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
     else:
         print("Lista de alunos (ordenada alfabeticamente por E-mail):")
@@ -71,7 +71,7 @@ def showSortedByEmail():
 def searchByName():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -85,7 +85,7 @@ def searchByName():
 def searchByEmail():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -110,7 +110,7 @@ def registerStudent():
         name = input("Digite o nome completo do aluno: ").strip().title()
         email = input("Digite o e-mail do aluno: ").strip().lower()
 
-        if config.isEmpty(name) or config.isEmpty(email):
+        if utils.isEmpty(name) or utils.isEmpty(email):
             print("[Erro] Não cadastramos informações em branco.")
         else:
             students.update({name: email})
@@ -119,7 +119,7 @@ def registerStudent():
 def removeByName():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -135,7 +135,7 @@ def removeByName():
 def removeByEmail():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -152,7 +152,7 @@ def removeByEmail():
 def updateName():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -168,7 +168,7 @@ def updateName():
 def updateEmail():
     global students
 
-    if config.isEmpty(students):
+    if utils.isEmpty(students):
         print("[Erro] Nenhum aluno cadastrado.")
         return
 
@@ -182,35 +182,35 @@ def updateEmail():
 
 def updateUsername():
     newUsername = input("Digite o novo login do administrador: ")
-    config.inputFile("login", newUsername)
+    files.inputFile("login", newUsername)
 
 
 def updatePassword():
     print("Obs: A senha precisa ter entre 4 á 8 digitos\n")
     newPassword = input("Digite a nova senha do administrador: ")
     if len(newPassword) >= 4 and len(newPassword) <= 8:
-        config.inputFile("senha", newPassword)
+        files.inputFile("senha", newPassword)
     else:
-        print("[Erro    ] Não foi possivel cadastrar essa senha")
+        print("[Erro] Não foi possivel cadastrar essa senha")
 
 
 def restoreLogin():
-    config.inputFile("login", config.defaultLogin)
-    config.inputFile("senha", config.defaultPassword)
+    files.inputFile("login", config.defaultLogin)
+    files.inputFile("senha", config.defaultPassword)
     print("Login de administrador restaurado")
 
 
 def encryptPassword():
-    encryptpassword = config.encrypt(config.openFile("senha"))
-    config.inputFile("senha", encryptpassword)
-    config.animated("Criptografando")
+    encryptpassword = config.encrypt(files.getFileContents("senha"))
+    files.inputFile("senha", encryptpassword)
+    console.animated("Criptografando")
     print(f"\nSua senha encriptografada é: {encryptpassword}")
 
 
 def decryptPassword():
-    decryptpassword = config.decrypt(config.openFile("senha"))
-    config.animated("Descriptografando")
-    config.inputFile("senha", decryptpassword)
+    decryptpassword = config.decrypt(files.getFileContents("senha"))
+    console.animated("Descriptografando")
+    files.inputFile("senha", decryptpassword)
     print(f"\nSua senha descriptografada é: {decryptpassword}")
 
 
@@ -249,16 +249,15 @@ def queryCommand():
     if chosenCommand not in COMMAND_LIST:
         print("[Erro] Comando não encontrado.")
     else:
-        config.pressCommand()
         print()
         COMMANDS[chosenCommand]()
         print()
 
 
 def main():
-    config.clearScreen()
+    console.clearScreen()
     config.loginAdm()
-    config.clearScreen()
+    console.clearScreen()
     while True:
         queryCommand()
 

@@ -1,5 +1,5 @@
 from string import ascii_letters, digits, punctuation
-import time, sys
+import files, console
 
 
 defaultLogin = "admin"
@@ -10,11 +10,6 @@ MAX_RANGE = 8
 MIN_RANGE = 4
 CARACTERES = ascii_letters + digits + punctuation
 CHAVE = 140 #idade do retalio uwu
-
-
-def inputFile(filename, newValue):
-    with open(f"txtSrc/{filename}.txt", mode="w", encoding="utf-8") as file:
-        file.write(newValue)
 
 
 def encrypt(sequence):
@@ -36,32 +31,24 @@ def decrypt(sequence):
     return encrypt(sequence)
 
 
+def verifyLogin(login, senha):
+    
+    if login in files.getFileContents("login") and senha in files.getFileContents("senha"):
+        return True
+    else:
+        return False
+
+
 def loginAdm():
     while True:
         print("Bem-vindo, acesse com seu login de administrador\n")
         userName = input("Username: ")
         password = input("Password: ")
 
-        login = userName.lower() + password
-
-        if login == querryLogin():
+        if verifyLogin(userName, password) == True:
             print()
-            animated("Concedendo acesso")
+            console.animated("Concedendo acesso")
             break
         else:
             print("\n[Erro] Usuário ou senha incorretos, tente novamente.")
             continue
-
-
-def pressCommand():
-    while True:
-        pressCommand = str(input('\nPRESSIONE "ENTER" PARA CONTINUAR'))
-        if not pressCommand:
-            break
-
-def animated(loading):
-    chars = "|/—\|/—\|" 
-    for char in chars:
-        sys.stdout.write("\r" + loading + " " + char)
-        time.sleep(0.3)
-        sys.stdout.flush()
