@@ -10,7 +10,7 @@ def getFileLines(filename):
     return lines
 
 
-def getFileContent(filename):
+def getFileContents(filename):
     file = openEncoded(filename)
     content = file.read()
     file.close()
