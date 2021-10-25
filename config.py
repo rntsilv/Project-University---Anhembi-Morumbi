@@ -32,7 +32,8 @@ def decrypt(sequence):
 
 
 def verifyLogin(login, senha):
-    
+
+    senha = decrypt(senha)
     if login in files.getFileContents("login") and senha in files.getFileContents("senha"):
         return True
     else:

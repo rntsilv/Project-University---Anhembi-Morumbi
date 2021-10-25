@@ -16,7 +16,5 @@ LISTA DE COMANDOS
     update/e      Altera o e-mail de um aluno.
     update/l      Altera o login de administrador.
     update/p      Altera a senha de administrador.
-    update/c      Criptografa a senha cadastrada.
-    update/d      Descriptografa a senha cadastrada.
     end           Interrompe a execução do programa.
     

@@ -2,6 +2,7 @@ import config, utils, files, console
 
 students = {}
 
+
 def storeRemoved(name, email, reason):
     with open("txtSrc/deleted.txt", mode="a", encoding="utf-8") as file:
         file.write(f"Nome: {name}\nE-mail: {email}\nMotivo: {reason}\n")
@@ -189,35 +190,23 @@ def updatePassword():
     print("Obs: A senha precisa ter entre 4 á 8 digitos\n")
     newPassword = input("Digite a nova senha do administrador: ")
     if len(newPassword) >= 4 and len(newPassword) <= 8:
-        files.inputFile("senha", newPassword)
+        files.inputFile("senha", config.encrypt(newPassword))
+        console.animated("Criptografando senha")
     else:
         print("[Erro] Não foi possivel cadastrar essa senha")
 
 
 def restoreLogin():
     files.inputFile("login", config.defaultLogin)
-    files.inputFile("senha", config.defaultPassword)
+    files.inputFile("senha", config.encrypt(config.defaultPassword))
+    console.animated("Restaurando")
     print("Login de administrador restaurado")
-
-
-def encryptPassword():
-    encryptpassword = config.encrypt(files.getFileContents("senha"))
-    files.inputFile("senha", encryptpassword)
-    console.animated("Criptografando")
-    print(f"\nSua senha encriptografada é: {encryptpassword}")
-
-
-def decryptPassword():
-    decryptpassword = config.decrypt(files.getFileContents("senha"))
-    console.animated("Descriptografando")
-    files.inputFile("senha", decryptpassword)
-    print(f"\nSua senha descriptografada é: {decryptpassword}")
 
 
 def stopExecution():
     exit()
-        
-        
+
+
 COMMANDS = {
     "help": showHelp,
     "register": registerStudent,
@@ -235,8 +224,6 @@ COMMANDS = {
     "update/e": updateEmail,
     "update/l": updateUsername,
     "update/p": updatePassword,
-    "update/c": encryptPassword,
-    "update/d": decryptPassword,
     "end": stopExecution,
 }
 
