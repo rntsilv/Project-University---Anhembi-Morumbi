@@ -1,6 +1,6 @@
 # 🎓Project University Anhembi Morumbi🎓
 
- <img src="https://img.shields.io/badge/Project%20 University Anhembi Morumbi-Em desenvolvimento-orange" alt="standard edition status">
+ <img src="https://img.shields.io/badge/Project%20 University Anhembi Morumbi-Concluído-green" alt="standard edition status">
 
 ## Funções do Programa:
 * O sistema irá permitir a implementação dos seguintes funções para o gestor:
